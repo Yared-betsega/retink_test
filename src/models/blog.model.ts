@@ -1,14 +1,24 @@
-import mongoose, { Schema, Document } from 'mongoose';
+// src/models/blog.model.ts
+import mongoose, { Schema, Document } from "mongoose";
 
-export interface Author extends Document {
-  fullName: string;
-  email: string;
+export interface IBlog extends Document {
+  title: string;
+  content: string;
+  author: string; // Use ObjectId for author
+  comments: string[]; // Use ObjectId for comments
+  coAuthors: string[]; // Use ObjectId for coAuthors
+  likesCount: number;
+  viewsCount: number;
 }
 
-const AuthorSchema: Schema = new Schema({
-  fullName: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
+const blogSchema = new Schema({
+  title: String,
+  content: String,
+  author: { type: Schema.Types.ObjectId, ref: "Author" },
+  comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+  coAuthors: [{ type: Schema.Types.ObjectId, ref: "Author" }],
+  likesCount: Number,
+  viewsCount: Number,
 });
 
-export default mongoose.model<Author>('Author', AuthorSchema);
-
+export default mongoose.model<IBlog>("Blog", blogSchema);
