@@ -1,4 +1,3 @@
-// author.model.ts
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface Author extends Document {
