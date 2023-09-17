@@ -4,7 +4,10 @@ import { createCommentValidation } from "../utils/validation";
 
 class CommentService {
   async createComment(commentData: Partial<Comment>): Promise<Comment> {
-    createCommentValidation.validate(commentData);
+    const validationResult = createCommentValidation.validate(commentData);
+    if (validationResult.error != null) {
+      throw Error(validationResult.error.message);
+    }
     return CommentRepository.createComment(commentData);
   }
 

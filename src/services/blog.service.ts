@@ -5,7 +5,10 @@ import { createBlogValidation } from "../utils/validation";
 
 class BlogService {
   async createBlog(blogData: Partial<IBlog>): Promise<IBlog> {
-    createBlogValidation.validate(blogData);
+    const validationResult = createBlogValidation.validate(blogData);
+    if (validationResult.error != null) {
+      throw Error(validationResult.error.message);
+    }
     return blogRepository.createBlog(blogData);
   }
 

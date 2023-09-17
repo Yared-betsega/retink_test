@@ -4,7 +4,10 @@ import { createAuthorValidation } from "../utils/validation";
 
 class AuthorService {
   async createAuthor(authorData: Partial<Author>): Promise<Author> {
-    createAuthorValidation.validate(authorData);
+    const validationResult = createAuthorValidation.validate(authorData);
+    if (validationResult.error != null) {
+      throw Error(validationResult.error.message);
+    }
     return AuthorRepository.createAuthor(authorData);
   }
 

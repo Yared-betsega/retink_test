@@ -7,7 +7,11 @@ class BlogController {
       const blog = await blogService.createBlog(req.body);
       res.status(201).json(blog);
     } catch (error) {
-      res.status(500).json({ error: "Failed to create blog" });
+      if (error instanceof Error) {
+        res.status(400).json({ error: error.message });
+      } else {
+        res.status(400).json({ error: "Internal server error" });
+      }
     }
   }
 
@@ -19,7 +23,11 @@ class BlogController {
       }
       res.status(200).json(blog);
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch Blog" });
+      if (error instanceof Error) {
+        res.status(400).json({ error: error.message });
+      } else {
+        res.status(400).json({ error: "Internal server error" });
+      }
     }
   }
 
@@ -31,7 +39,11 @@ class BlogController {
       }
       res.status(200).json(blog);
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch Blog" });
+      if (error instanceof Error) {
+        res.status(400).json({ error: error.message });
+      } else {
+        res.status(400).json({ error: "Internal server error" });
+      }
     }
   }
 
@@ -43,7 +55,11 @@ class BlogController {
       }
       res.status(200).json(blog);
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch Blog" });
+      if (error instanceof Error) {
+        res.status(400).json({ error: error.message });
+      } else {
+        res.status(400).json({ error: "Internal server error" });
+      }
     }
   }
 }

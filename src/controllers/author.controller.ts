@@ -7,7 +7,11 @@ class AuthorController {
       const author = await authorService.createAuthor(req.body);
       res.status(201).json(author);
     } catch (error) {
-      res.status(500).json({ error: "Failed to create author" });
+      if (error instanceof Error) {
+        res.status(400).json({ error: error.message });
+      } else {
+        res.status(400).json({ error: "Internal server error" });
+      }
     }
   }
 
@@ -19,7 +23,9 @@ class AuthorController {
       }
       res.status(200).json(author);
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch author" });
+      res
+        .status(500)
+        .json({ error: "Cannot find author with the provided id" });
     }
   }
 }
