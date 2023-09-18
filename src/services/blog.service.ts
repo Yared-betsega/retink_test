@@ -16,6 +16,10 @@ class BlogService {
     return BlogRepository.getBlogById(id);
   }
 
+  async addCommentToBlog(id: string, commentId: string): Promise<IBlog | null> {
+    return BlogRepository.addCommentToBlog(id, commentId);
+  }
+
   async likeBlog(id: string): Promise<IBlog | null> {
     return BlogRepository.incrementLikesCount(id);
   }

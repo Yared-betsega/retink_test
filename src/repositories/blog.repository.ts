@@ -10,6 +10,13 @@ class BlogRepository {
     return BlogModel.findById(id);
   }
 
+  async addCommentToBlog(id: string, commentId: string): Promise<IBlog | null> {
+    var blog = await BlogModel.findById(id);
+    blog!.comments.push(commentId);
+    await blog!.save();
+    return blog;
+  }
+
   async incrementLikesCount(blogId: string): Promise<IBlog | null> {
     const updatedBlog = await BlogModel.findByIdAndUpdate(
       blogId,
