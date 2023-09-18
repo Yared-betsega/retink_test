@@ -7,7 +7,11 @@ class CommentController {
       const comment = await commentService.createComment(req.body);
       res.status(201).json(comment);
     } catch (error) {
-      res.status(500).json({ error: "Failed to create comment" });
+      if (error instanceof Error) {
+        res.status(400).json({ error: error.message });
+      } else {
+        res.status(400).json({ error: "Internal server error" });
+      }
     }
   }
 
